@@ -1,4 +1,4 @@
-# packer
+# Packer
 Various Packer templates for image builds against vSphere, AWS and GCP - Packer currently supports **SSH** or **WinRM** to upload files, execute scripts, etc - these are configured within the **builders** section. The template JSON file contains the following distinct sections;
 
 

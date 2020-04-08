@@ -1,4 +1,5 @@
-AWS
+# AWS
+Useful information for using the AWS builder
 
 **PACKER EXAMPLE - AWS BUILDER**
 For the example.json build, pass in the AWS credentials - as per;
