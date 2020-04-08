@@ -1,19 +1,22 @@
 # Shell provisioner examples
 All provisioning tasks done via the Bash shell - using these methods;
 
-- inline - multi-line Bash script embedded inside the Packer template JSON
+- **inline** - multi-line Bash script embedded inside the Packer template JSON
 
 ```
 "type": "shell",
 "inline": 
 ```
 
-- external - state the seperate shell script name
+- **external** - state the path and name of the .sh shell script
 
 ```
 "type": "shell",
 "script": "bootstrap.sh" 
 ```
+
+___
+
 
 **webserver1.json**
 

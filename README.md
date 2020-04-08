@@ -1,14 +1,13 @@
 # packer
-Various packer builds against vSphere, AWS and GCP
+Various Packer templates for image builds against vSphere, AWS and GCP - Packer currently supports **SSH** or **WinRM** to upload files, execute scripts, etc - these are configured within the **builders** section. The template JSON file contains the following distinct sections;
 
-**COMMUNICATORS**
-The mechanism used to upload files, execute scripts, etc - with the machine being created.
-Communicators are configured within the builders section. Packer currently supports **SSH** or **WinRM**
+
+**VARIABLES**
+Lets you parameterize your templates so that you can keep secrets out of them. Maximizes the portability of the template. Adheres to DRY principles.
 
 
 **BUILDERS**
-Builders are responsible for creating machines and generating images from them for various platforms. 
-There are seperate builders for AWS, GCP, VMware etc.
+Builders are responsible for creating machines and generating images from them for various platforms. There are seperate builders for AWS, GCP, VMware etc.
 
 
 **PROVISIONERS**
@@ -43,21 +42,19 @@ Post-processors are optional, and they can be used to;
 
 - vsphere template creation
 
+___
 
-**PACKER EXAMPLE - AWS BUILDER**
-For the example.json build, pass in the AWS credentials - as per;
+
+**TIPS**
+
+Capture the output of the image build to a file - useful to note the image ID;
 
 ```
-packer build \
-  -var 'aws_access_key=YOUR ACCESS KEY' \
-  -var 'aws_secret_key=YOUR SECRET KEY' \
-  example.json
+packer build example.json 2>&1 | sudo tee output.txt
 ```
 
-To clean up, deregister the AMI in AWS via;
+Validate the JSON code;
 
-IMAGES > AMIs... select AMI > Actions > Deregister
-
-Then delete the associated snapshot via;
-
-EC2 > Snapshots... select snapshot > Actions > Delete
+```
+packer validate example.json
+```
