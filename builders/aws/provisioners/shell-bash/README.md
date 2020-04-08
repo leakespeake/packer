@@ -42,6 +42,7 @@ resource "aws_instance" "example1" {
                 sudo service apache2 start
                 EOF
 }
+```
 
 We also need to ensure the region stated in the **provider** block matches the region the new AMI resides in;
 
