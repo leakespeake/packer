@@ -28,7 +28,20 @@ When creating our AWS resource via **main.tf** - the salient parts will be;
 - the **AMI ID** of the new Packer image
 - matching the region of the AMI ID in the **providers** code block
 - the **user_data** argument to pass a shell script to start the intended service(s)
-- a **Security Group** to allow ingress rules for the intended service(s) and SSH
+- a **security group** to allow ingress rules for the intended service(s) and SSH
+
+___
+
+**SSH ACCESS TO THE NEW EC2 INSTANCE**
+Use the **ssh -i** command to connect - must specify the following;
+
+- the path and file name of the private key (.pem)
+- the user name for the AMI
+- the public DNS name
+
+```
+ssh -i /path/my-key-pair.pem ec2-user@ec2-198-51-100-1.compute-1.amazonaws.com
+```
 
 ___
 
