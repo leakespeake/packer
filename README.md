@@ -85,6 +85,7 @@ packer/builders/aws/provisioners/ansible/OS/centos
 
 packer/builders/aws/provisioners/ansible/OS/coreos
 
+___
 
 packer/builders/aws/provisioners/shell/OS/ubuntu
 
@@ -92,6 +93,7 @@ packer/builders/aws/provisioners/shell/OS/centos
 
 packer/builders/aws/provisioners/shell/OS/coreos
 
+___
 
 packer/builders/aws/provisioners/powershell/OS/windows-server
 
