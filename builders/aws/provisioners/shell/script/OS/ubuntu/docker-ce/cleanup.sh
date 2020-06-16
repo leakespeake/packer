@@ -3,7 +3,7 @@
  
 set -e
  
-echo 'Cleaning up after bootstrapping...'
+echo 'CLEANING UP AFTER BOOTSTRAPPING...'
 sudo apt-get -y autoremove
 sudo apt-get -y clean
 sudo rm -rf /tmp/*

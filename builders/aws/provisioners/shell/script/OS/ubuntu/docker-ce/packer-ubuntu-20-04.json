@@ -2,9 +2,9 @@
   "variables": {
     "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
     "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
-    "name": "aws-packer-ubuntu-focal-docker-ce",
+    "name": "packer-aws-ubuntu-20-04",
     "eu_west_2_ami": "ami-0ffac660dd0cb2973",
-    "eu_west_2_name": "packer-ubuntu-focal-docker-ce",
+    "eu_west_2_name": "packer-aws-ubuntu-20-04",
     "ssh_username": "ubuntu"
   },
   "builders": [
@@ -33,8 +33,8 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "bootstrap_docker_ce.sh",
-      "destination": "/tmp/bootstrap_docker_ce.sh"
+      "source": "bootstrap.sh",
+      "destination": "/tmp/bootstrap.sh"
     },
     {
       "type": "file",
@@ -47,10 +47,10 @@
       "inline": [
         "whoami",
         "cd /tmp",
-        "chmod +x bootstrap_docker_ce.sh",
+        "chmod +x bootstrap.sh",
         "chmod +x cleanup.sh",
         "ls -alh /tmp",
-        "./bootstrap_docker_ce.sh",
+        "./bootstrap.sh",
         "sleep 10",
         "./cleanup.sh"
       ]
