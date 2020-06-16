@@ -1,0 +1,59 @@
+{
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+    "name": "packer-aws-centos-8",
+    "eu_west_2_ami": "ami-0eee2548cd75b4877",
+    "eu_west_2_name": "packer-aws-centos-8",
+    "ssh_username": "centos"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "eu-west-2",
+      "vpc_id": "",
+      "subnet_id": "",
+      "name": "{{user `eu_west_2_name`}}",
+      "source_ami": "{{user `eu_west_2_ami`}}",
+      "instance_type": "t2.micro",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_timeout": "10m",
+      "ami_name": "{{user `eu_west_2_name`}} {{timestamp}}",
+      "ami_description": "{{user `eu_west_2_name`}} AMI",
+      "run_tags": {
+        "ami-create": "{{user `eu_west_2_name`}}"
+      },
+      "tags": {
+        "ami": "{{user `eu_west_2_name`}}"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "bootstrap.sh",
+      "destination": "/tmp/bootstrap.sh"
+    },
+    {
+      "type": "file",
+      "source": "cleanup.sh",
+      "destination": "/tmp/cleanup.sh"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'packer' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'",
+      "inline": [
+        "whoami",
+        "cd /tmp",
+        "chmod +x bootstrap.sh",
+        "chmod +x cleanup.sh",
+        "ls -alh /tmp",
+        "./bootstrap.sh",
+        "sleep 10",
+        "./cleanup.sh"
+      ]
+    }
+  ]
+}
