@@ -1,4 +1,5 @@
-# Packer
+![packer](https://user-images.githubusercontent.com/45919758/85199800-320c9c00-b2ea-11ea-86bf-a3e02487cf8f.png)
+
 Packer template builds for Ubuntu, CentOS, CoreOS and Windows Server against AWS, GCP and vSphere builders. Packer currently supports **SSH** or **WinRM** to upload files, execute scripts, etc - these are configured within the **builders** section. The template JSON file contains the following distinct sections;
 
 
