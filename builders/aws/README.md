@@ -57,7 +57,7 @@ ___
 
 **CLEANING UP**
 
-AMIs are made up of EC2 snapshots which are stored in S3. There is a cost associated with storing these snapshots so, although unlikely to be a major cost, you'll want to clean them up periodically. It's a simple 2 step process in the AWS console;
+AMIs are made up of EC2 snapshots (EBS volume backups) which are stored in S3. There is a cost associated with storing these snapshots so, although unlikely to be a major cost, you'll want to clean them up periodically. It's a simple 2 step process in the AWS console;
 
 **[1]** You must first deregister the AMI;
 
