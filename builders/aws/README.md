@@ -59,11 +59,11 @@ ___
 
 AMIs are made up of EC2 snapshots which are stored in S3. There is a cost associated with storing these snapshots so, although unlikely to be a major cost, you'll want to clean them up periodically. It's a simple 2 step process in the AWS console;
 
-[1] You must first deregister the AMI;
+**[1]** You must first deregister the AMI;
 
 EC2 > IMAGES > AMIs... select AMI > Actions > Deregister
 
-[2] Then delete the associated snapshot via;
+**[2]** Then delete the associated snapshot via;
 
 EC2 > Snapshots... select snapshot > Actions > Delete
 
