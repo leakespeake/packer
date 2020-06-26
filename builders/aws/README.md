@@ -1,8 +1,9 @@
 # AWS
 Useful information for using the AWS builder
 
-**PACKER EXAMPLE - AWS BUILDER**
-For the example.json build, pass in the AWS credentials - as per;
+**AWS CREDENTIALS**
+
+For the example.json Packer build, we can pass in our AWS credentials either at the **packer build** command;
 
 ```
 packer build \
@@ -11,7 +12,13 @@ packer build \
   example.json
 ```
 
-If you have already set the credentials in **~/.aws/credentials** file, you don’t need to pass access keys as variables.
+Or as a variable within example.json - these environment variables must exist within **~/.bashrc**
+
+```
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+``` 
 
 ___
 
@@ -46,11 +53,13 @@ ssh -i /path/my-key-pair.pem ec2-user@ec2-198-51-100-1.compute-1.amazonaws.com
 ___
 
 **CLEANING UP**
-Particularly when on a free tier account - to clean up, deregister the AMI via;
+AMIs are made up of EC2 snapshots which are stored in S3. There is a cost associated with storing these snapshots so, although unlikely to be a major cost, you'll want to clean them up periodically. It's a simple 2 step process in the AWS console;
+
+[1] You must first deregister the AMI;
 
 EC2 > IMAGES > AMIs... select AMI > Actions > Deregister
 
-Then delete the associated snapshot via;
+[2] Then delete the associated snapshot via;
 
 EC2 > Snapshots... select snapshot > Actions > Delete
 
