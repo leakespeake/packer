@@ -55,5 +55,15 @@
         "./cleanup.sh"
       ]
     }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "shell-local",
+        "environment_vars": ["SHELLLOCALTEST=This-is-a-test-post-processor"],
+        "tempfile_extension": ".cmd",
+        "inline": ["echo %SHELLLOCALTEST%"]
+      }
+    ]
   ]
 }

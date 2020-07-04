@@ -6,6 +6,6 @@ set -e
 echo 'CLEANING UP AFTER BOOTSTRAPPING...'
 sudo apt-get -y autoremove
 sudo apt-get -y clean
-sudo rm -rf /tmp/*
+sudo rm -rf /var/lib/apt/lists/* /tmp/*
 cat /dev/null > ~/.bash_history
 exit
