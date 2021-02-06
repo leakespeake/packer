@@ -1,6 +1,8 @@
 ![packer](https://user-images.githubusercontent.com/45919758/85199800-320c9c00-b2ea-11ea-86bf-a3e02487cf8f.png)
 
-Packer template builds for Ubuntu, CentOS, CoreOS and Windows Server against AWS, GCP and vSphere builders. Packer currently supports **SSH** or **WinRM** to upload files, execute scripts, etc - these are configured within the **builders** section. The template JSON file contains the following distinct sections;
+Packer template creations for on-prem and the cloud - for Ubuntu, CentOS, CoreOS and Windows Server against AWS, GCP and vSphere builders. 
+
+The template JSON file contains the following distinct sections;
 
 
 **VARIABLES**
@@ -10,7 +12,7 @@ Lets you parameterize your templates so that you can keep secrets out of them. M
 
 **BUILDERS**
 
-Builders are responsible for creating machines and generating images from them for various platforms. There are seperate builders for AWS, GCP, VMware etc.
+Builders are responsible for creating machines and generating images from them for various platforms. There are seperate builders for AWS, GCP, VMware etc. Packer supports **SSH** (Linux) or **WinRM** (Windows) to upload files, execute scripts, etc - these are configured here.
 
 
 **PROVISIONERS**
@@ -51,28 +53,10 @@ Post-processors are optional, and they can be used to;
 ___
 
 
-**TIPS**
-
-Capture the output of the image build to a file - useful to note the image ID;
-
+## USAGE
 ```
-packer build example.json 2>&1 | sudo tee output.txt
-```
+packer build template-OS.json
+packer validate template-OS.json
+packer fix template-OS.json > new-template-OS.json
+packer build template-OS.json 2>&1 | sudo tee output.txt
 
-Validate the JSON code;
-
-```
-packer validate example.json
-```
-
-___
-
-**DIRECTORY STRUCTURE**
-
-The directories are organised by the following;
-
-- **builder** - aws, googlecompute (gcp), vmware
-
-- **provisioner** - ansible, shell, powershell
-
-- **OS** - ubuntu, centos, coreos, windows server
