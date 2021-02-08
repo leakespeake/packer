@@ -4,7 +4,7 @@ This repository contains the Packer template and supporting files to deploy Wind
 
 Packer uses the JSON template to create the VM image directly on the vSphere server via the vSphere API, then perform an unattended install and configuration of Windows Server 2019. The same build format can be easily re-applied for Windows 10, Server 2016 etc. 
 
-Once the new VM image is created, the intention is to then use Terraform to deploy new instances from it and further configure with Ansible (patching etc).
+Once the new VM image is created, the intention is to then use Terraform to deploy new instances from it - also performing sysprep as part of the **clone** and **customize** code blocks within the **vsphere_virtual_machine** resource. Further standardized configuration to be achieved by Ansible over WinRM.
 
 ---
 
@@ -57,8 +57,8 @@ This negates the need to store these values in GitHub when we commit them and in
 ```
 setx WINADMIN-PASSWORD {password}
 ```
-Close and re-open Powershell then view all environment vaiables via; **dir env:**
+Close and re-open Powershell then view all environment variables via; **dir env:**
 
-Or add your exports if running from Bash.
+Or add your **exports** if running from Bash.
 
-We could also feed these values in via -var when we run the packer build command then clear the history. Also note that we intend to change to autologon Administrator password of ‘packer’ when we deploy new VMs from this image template, either with Terraform or Ansible for post configuration tasks.
+We could also feed these values in via **-var** when we run the packer build command then clear the history. Also note that we intend to change to autologon Administrator password of ‘packer’ when we deploy new VMs from this image template, either with Terraform or Ansible for post configuration tasks.
