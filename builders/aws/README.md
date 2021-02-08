@@ -55,6 +55,22 @@ ssh -i /path/my-key-pair.pem ec2-user@ec2-198-51-100-1.compute-1.amazonaws.com
 
 ___
 
+**WINDOWS & SYSPREP**
+
+When using a vanilla Windows OS ISO with the **aws** builder...
+
+When using an AWS Windows AMI, to ensure that any Windows machines generated do not have the same GUIDs and any other identifying IDs, AWS provide Sysprep and InitializeInstance scripts as part of their base Windows AMI's, that can be run when using them as base for customization. This is ran during the **provisioners** phase of the build to prepare the system for duplication;
+
+```
+  "provisioners": [
+    {
+      "type": "powershell",
+      “inline”: [
+      “C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\InitializeInstance.ps1 -Schedule”,
+      “C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\SysprepInstance.ps1 -NoShutdown”
+    },
+___
+
 **CLEANING UP**
 
 AMIs are made up of EC2 snapshots (EBS volume backups) which are stored in S3. There is a cost associated with storing these snapshots so, although unlikely to be a major cost, you'll want to clean them up periodically. It's a simple 2 step process in the AWS console;
