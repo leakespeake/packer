@@ -69,6 +69,7 @@ When using an AWS Windows AMI, to ensure that any Windows machines generated do 
       “C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\InitializeInstance.ps1 -Schedule”,
       “C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\SysprepInstance.ps1 -NoShutdown”
     },
+```
 ___
 
 **CLEANING UP**
