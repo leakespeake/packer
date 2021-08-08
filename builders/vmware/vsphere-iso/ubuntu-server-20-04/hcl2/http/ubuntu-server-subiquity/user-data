@@ -1,0 +1,45 @@
+#cloud-config
+runcmd:
+ # to enable true auto-install for Ubuntu 20.04 with cloud-init nocloud (eliminates "Continue with autoinstall?" prompt) 
+ - [eval, 'echo $(cat /proc/cmdline) "autoinstall" > /root/cmdline']
+ - [eval, 'mount -n --bind -o ro /root/cmdline /proc/cmdline']
+ - [eval, 'snap restart subiquity.subiquity-service']
+autoinstall:
+    version: 1
+    early-commands:
+      # stop ssh to prevent packer connecting early (will see "Waiting for SSH to become available" until the packer ssh communicator is ready)
+      - sudo systemctl stop ssh
+    locale: en_US
+    keyboard:
+      layout: en
+      variant: uk
+    storage:
+      layout:
+        name: lvm
+    identity:
+      hostname: ubuntu-server
+      username: ubuntu
+      password: '$6$rounds=4096$OLyXaA25FrK$dOx525Krpu/7Fa1O21f2V2Azfyjy.OmkLDLOLhMcH6/oOtOo1gbI43lMGlL5eNO2eis8OGnzu8tUvJ/ERMrXn0'
+      # the hash of the password you want to use for this user - generate a safe hash via;
+      # mkpasswd --method=SHA-512 --rounds=4096
+      # type desired plain text password when prompted for "Password:" - this will create a SHA-512 password hash with 4096 salt rounds
+      # add an environment variable for 'ssh_password' to cleanly pass the value at runtime
+    ssh:
+      install-server: true
+      allow-pw: true
+    packages:
+      - openssh-server
+      - open-vm-tools
+      - net-tools
+      - nmap
+      - curl
+      - htop
+      - pydf
+      - ncdu
+    user-data:
+      disable_root: false
+    late-commands:
+      - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
+      - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/ubuntu
+      #- curtin in-target --target=/target -- apt-get update          [performed by bootstrap.sh]
+      #- curtin in-target --target=/target -- apt-get upgrade --yes   [performed by bootstrap.sh]
