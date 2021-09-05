@@ -12,7 +12,7 @@ autoinstall:
     locale: en_US
     keyboard:
       layout: en
-      variant: uk
+      variant: us
     storage:
       layout:
         name: lvm
