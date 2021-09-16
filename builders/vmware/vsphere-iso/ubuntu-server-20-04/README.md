@@ -6,7 +6,9 @@ It uses the Long Term Support (LTS) "live" installer that can refresh itself to 
 
 Hashicorp now recommend HCL2 as the preferred way to write Packer configurations. HCL2 enables more descriptive code via comments and variable descriptions as well as pairing more seamlessly with the Terraform HCL2 code practises. Hence, the **.json** files are now replaced with **.pkr.hcl** extensions and format.
 
-The **vsphere-iso** builder creates the template directly in vCenter via the vSphere API. We are utlizing **subiquity** which is Canonical's new automated Ubuntu server installation system that leverages cloud-init configuration. After this customized "build" stage we will use shell scripts (as part of the "provisioners" process) to update and upgrade then bake in the following;
+The **vsphere-iso** builder creates the template directly in vCenter via the vSphere API. We are utlizing **subiquity** which is Canonical's new automated Ubuntu server installation system that leverages cloud-init configuration. The **user-data** file is leveraged to customize Ubuntu's keyboard and timezone to UK. It also installs essential base packages to enhance server ops and optimize Ubuntu for running within vmware via 'open-vm-tools'.
+
+After this customized "build" stage we will use shell scripts (as part of the "provisioners" process) to update and upgrade Ubuntu, then bake in the following;
 
 -   a container manager (docker-ce)
 -   ansible functionality (python 3.x and openssh-server)

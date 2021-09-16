@@ -79,7 +79,7 @@ variable network {
 variable folder {
   type = string
   description = "The VM folder in which the VM template will be created."
-  default = "Templates"
+  default = "Packer-templates"
 }
 
 variable host {

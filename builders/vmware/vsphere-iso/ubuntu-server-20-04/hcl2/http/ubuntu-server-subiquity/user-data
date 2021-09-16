@@ -11,8 +11,7 @@ autoinstall:
       - sudo systemctl stop ssh
     locale: en_US
     keyboard:
-      layout: en
-      variant: us
+      layout: gb 
     storage:
       layout:
         name: lvm
@@ -27,6 +26,7 @@ autoinstall:
     ssh:
       install-server: true
       allow-pw: true
+    # essential base packages to enhance server ops and optimize Ubuntu for running within vmware via open-vm-tools  
     packages:
       - openssh-server
       - open-vm-tools
@@ -37,6 +37,7 @@ autoinstall:
       - pydf
       - ncdu
     user-data:
+      timezone: Europe/London
       disable_root: false
     late-commands:
       - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
