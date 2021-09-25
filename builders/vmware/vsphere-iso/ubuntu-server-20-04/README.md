@@ -15,7 +15,7 @@ After this customized "build" stage we will use shell scripts (as part of the "p
 
 Once the new VM image is created, the intention is to then use Terraform to deploy new instances from it via the **clone** and **customize** blocks within the **vsphere_virtual_machine** resource. As such I have written a re-usable child module that will standardize these VM deployments to vCenter server;
 
-[ENTER CHILD MODULE LINK HERE]
+https://github.com/leakespeake/terraform-reusable-modules/tree/master/vsphere/template-cloning/linux/ubuntu-server-20-04
 
 Further standardized configuration to be achieved by Ansible over SSH.
 
