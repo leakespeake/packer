@@ -50,6 +50,17 @@ sudo apt-get install -y docker-ce
 # add the ubuntu user to the docker group to ensure sudo is not required to execute Docker commands on any vm provisioned from resulting template
 echo "ADD UBUNTU USER TO DOCKER GROUP"
 sudo usermod -aG docker ubuntu
+
+# configure the docker remote api
+echo "CONFIGURE DOCKER REMOTE API"
+sudo mkdir /etc/systemd/system/docker.service.d
+sudo tee /etc/systemd/system/docker.service.d/override.conf << EOF
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2376
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker.service
  
 # ensure Docker starts up automatically at boot
 echo "SET DOCKER TO AUTO START AT BOOT"

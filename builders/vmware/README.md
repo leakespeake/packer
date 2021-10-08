@@ -55,3 +55,12 @@ data "vsphere_virtual_machine" "template" {
 We also use the **linux_options** block for our Linux guests.
 
 Full details here: https://registry.terraform.io/providers/hashicorp/vsphere/latest/docs/resources/virtual_machine
+
+# LINUX MANIFEST
+
+Note that, when deciding which packages to bake into the template for Linux, we can check the manifest for the particular .iso installer - for example;
+
+```
+wget http://releases.ubuntu.com/focal/ubuntu-20.04.3-live-server-amd64.manifest -q -O - | cut -f 1 
+```
+Here we see "git" (example) is already included so need not be added to our code.
