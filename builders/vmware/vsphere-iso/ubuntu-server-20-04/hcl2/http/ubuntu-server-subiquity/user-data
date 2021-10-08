@@ -42,5 +42,4 @@ autoinstall:
     late-commands:
       - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
       - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/ubuntu
-      #- curtin in-target --target=/target -- apt-get update          [performed by bootstrap.sh]
-      #- curtin in-target --target=/target -- apt-get upgrade --yes   [performed by bootstrap.sh]
+      
