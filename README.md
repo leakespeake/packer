@@ -71,3 +71,15 @@ $env:PACKER_LOG_PATH="C:\ProgramData\packer\packer_log.txt"
 export PACKER_LOG=1
 export PACKER_LOG_PATH="C:\ProgramData\packer\packer_log.txt"
 ```
+
+___
+
+## LINUX MANIFEST
+
+Note that, when deciding which packages to bake into a Linux template, we can check the manifest for the particular .iso installer - for example;
+```
+wget http://releases.ubuntu.com/focal/ubuntu-20.04.3-live-server-amd64.manifest -q -O - | cut -f 1 
+```
+Here we see "git" (as an example) is already included, so need not be added to our code.
+
+Obviously Microsoft have a much more static list of apps and features (and smaller OS family) so isn't required in that instance. 
