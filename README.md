@@ -56,7 +56,10 @@ ___
 
 
 ## USAGE
+We now use the **packer init {build-file-name}.pkr.hcl** command to enable automatic install of Packer plugins. These are maintained and installed seperately from the Packer core binary, in a similar fashion to Terraform.
+
 ```
+packer init template-OS.pkr.hcl
 packer build template-OS.pkr.hcl
 packer validate template-OS.pkr.hcl
 packer fix template-OS.pkr.hcl > new-template-OS.pkr.hcl
@@ -78,7 +81,7 @@ ___
 
 Note that, when deciding which packages to bake into a Linux template, we can check the manifest for the particular .iso installer - for example;
 ```
-wget http://releases.ubuntu.com/focal/ubuntu-20.04.3-live-server-amd64.manifest -q -O - | cut -f 1 
+wget http://releases.ubuntu.com/jammy/ubuntu-22.04-live-server-amd64.manifest -q -O - | cut -f 1 
 ```
 Here we see "git" (as an example) is already included, so need not be added to our code.
 
