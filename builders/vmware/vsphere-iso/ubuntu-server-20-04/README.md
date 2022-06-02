@@ -58,8 +58,12 @@ Note that there are 2 points in the build output to stdout that will sit for som
 -   **"waiting for SSH to become available"** - Subiquity must first populate the user-data config and reboot before Packer will attempt to use the SSH Communicator to start the provisioning stage and run the shell scripts on the remote instance
 
 Also note that, when deciding which packages to bake into the template, we can check the manifest for the particular live server .iso selected as per;
-
 ```
-wget http://releases.ubuntu.com/focal/ubuntu-20.04.3-live-server-amd64.manifest -q -O - | cut -f 1 
+wget https://releases.ubuntu.com/focal/ubuntu-20.04.4-live-server-amd64.manifest -q -O - | cut -f 1 
 ```
 Here we see "git" (for example) is already included so need not be added to our code.
+
+We can also confirm the additonal packages after deployment of the new template; 
+```
+dpkg --get-selections > packages.list
+```

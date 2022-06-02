@@ -1,0 +1,43 @@
+#cloud-config
+autoinstall:
+  version: 1
+  apt:
+    geoip: true   
+    preserve_sources_list: false
+    primary:
+      - arches: [amd64, i386]
+        uri: http://gb.archive.ubuntu.com/ubuntu
+      - arches: [default]
+        uri: http://ports.ubuntu.com/ubuntu-ports
+  early-commands:
+    - sudo systemctl stop ssh      
+  locale: en_US
+  keyboard:
+    layout: gb
+  storage:
+    layout:
+      name: lvm
+  identity:
+    hostname: ubuntu-server
+    username: ubuntu
+    password: '$6$rounds=4096$w6L8Oncg.DzHuQ$QmUQEiAVUvxvS1L5LBS.xgjc9zLnetP/O0QiwHJ2H10Gp9Fz9TJ61Icx47inU8gIoxMKtfHzlp/ABYjprdsn5/'
+    # the hash of the password you want to use for this user - generate a safe hash via;
+    # mkpasswd --method=SHA-512 --rounds=4096
+    # type desired plain text password when prompted for "Password:" - this will create a SHA-512 password hash with 4096 salt rounds
+    # add an environment variable for 'ssh_password' to cleanly pass the value at runtime via PKR_VAR_ssh_password
+  ssh:
+    install-server: true
+    allow-pw: true
+  packages:
+  # check package manifest first: wget https://releases.ubuntu.com/jammy/ubuntu-22.04-live-server-amd64.manifest -q -O - | cut -f 1
+    - iotop
+    - nmap
+    - ncdu
+    - pydf
+    - tree
+  user-data:
+    disable_root: false
+    timezone: Europe/London
+  late-commands:
+    - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
+    - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/ubuntu
