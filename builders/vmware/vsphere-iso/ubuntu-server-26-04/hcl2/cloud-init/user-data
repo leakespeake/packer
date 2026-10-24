@@ -1,0 +1,50 @@
+#cloud-config
+autoinstall:
+  version: 1
+  
+  # Configure Apt repositories
+  apt:
+    geoip: true   
+    preserve_sources_list: false
+    primary:
+      - arches: [amd64, i386]
+        uri: http://gb.archive.ubuntu.com/ubuntu
+      - arches: [default]
+        uri: http://ports.ubuntu.com/ubuntu-ports
+
+  # Prevent installer connectivity drops from triggering premature ssh executions
+  early-commands:
+    - sudo systemctl stop ssh      
+
+  # Regional mapping alignment (UK Settings)
+  locale: en_GB.UTF-8
+  keyboard:
+    layout: gb
+  timezone: Europe/London
+
+  # Storage configuration using default LVM configurations
+  storage:
+    layout:
+      name: lvm
+
+  # Host identification profiles
+  identity:
+    hostname: ubuntu-server
+    username: ubuntu
+    # Ensure you generate a safe hash via: openssl passwd -6
+    # You can pass this via PKR_VAR_ssh_password inside your environment arrays cleanly
+    password: '$6$VzTNBVkQoeSZVCtT$.PfGNEvXA17Am0kI1rg/RGPeek254Lj7c.ulKakScNgxrJq2bSM8e5Zh0AD5CLWTW.r12OV74K.UJrEiLdWc4/'
+
+  # Core OpenSSH configuration defaults
+  ssh:
+    install-server: true
+    allow-pw: true
+    ssh_pwauth: true
+
+  # Extra ops packages (open-vm-tools, python3, and openssh-server are omitted since they are pre-baked)
+  packages:
+    - iotop
+    - nmap
+    - ncdu
+    - pydf
+    - tree
